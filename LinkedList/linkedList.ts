@@ -7,7 +7,7 @@ interface ILinkedList<T> {
   push(value: T): this;
   pop(): Node<T> | undefined;
   unshift(value: T): this;
-  shift(): Node<T>;
+  shift(): Node<T> | undefined;
   get(index: number): Node<T>;
   set(index: number, value: T): boolean;
   insert(index: number, value: T): boolean | this;
@@ -27,6 +27,7 @@ class LinkedList<T> implements ILinkedList<T> {
   }
 
   push(value: T) {
+    // Add element at the end of the linked list
     const newNode: Node<T> = new Node(value);
     if (!this.head) {
       this.head = newNode;
@@ -40,23 +41,52 @@ class LinkedList<T> implements ILinkedList<T> {
   }
 
   pop() {
+    // Remove the last element of the linked list
     if (!this.head) return undefined;
 
     let pre: Node<T> = this.head;
     let temp: Node<T> = this.head;
 
     while (temp.next) {
-        pre = temp;
-        temp = temp.next;
+      pre = temp;
+      temp = temp.next;
     }
 
     this.tail = pre;
     this.tail.next = null;
     this.length--;
-    if(this.length === 0) {
-        this.head = null;
-        this.tail = null;
+    if (this.length === 0) {
+      this.head = null;
+      this.tail = null;
     }
     return temp;
   }
+
+  unshift(value: T) {
+    // Add element at the begining of the linked list
+    const newNode: Node<T> = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+    this.length--;
+    return this;
+  }
+
+  shift() {
+    // Remove the first element of the linked list
+    if (!this.head) return undefined;
+    let temp = this.head;
+    this.head = this.head.next;
+    temp.next = null;
+    this.length--;
+    if (this.length === 0) {
+      this.tail = null;
+    }
+    return temp;
+  }
+
 }
