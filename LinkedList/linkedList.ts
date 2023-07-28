@@ -8,7 +8,7 @@ interface ILinkedList<T> {
   pop(): Node<T> | undefined;
   unshift(value: T): this;
   shift(): Node<T> | undefined;
-  get(index: number): Node<T>;
+  get(index: number): Node<T> | undefined;
   set(index: number, value: T): boolean;
   insert(index: number, value: T): boolean | this;
   remove(index: number): this | boolean | Node<T>;
@@ -79,7 +79,7 @@ class LinkedList<T> implements ILinkedList<T> {
   shift() {
     // Remove the first element of the linked list
     if (!this.head) return undefined;
-    let temp = this.head;
+    let temp: Node<T> = this.head;
     this.head = this.head.next;
     temp.next = null;
     this.length--;
@@ -89,4 +89,23 @@ class LinkedList<T> implements ILinkedList<T> {
     return temp;
   }
 
+  get(index: number) {
+    if (index < 0 || index >= this.length) {
+      return undefined;
+    }
+    let temp: Node<T> = this.head!;
+    for (let i = 0; i < index; i++) {
+      temp = temp.next!;
+    }
+    return temp;
+  }
+
+  set(index: number, value: T) {
+    let temp: Node<T> | undefined = this.get(index);
+    if (temp) {
+      temp.value = value;
+      return true;
+    }
+    return false;
+  }
 }
