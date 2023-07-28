@@ -11,14 +11,14 @@ interface ILinkedList<T> {
   get(index: number): Node<T> | undefined;
   set(index: number, value: T): boolean;
   insert(index: number, value: T): boolean | this;
-  remove(index: number): this | boolean | Node<T>;
+  remove(index: number): this | false | Node<T> | undefined;
   reverse(): this;
 }
 
 class LinkedList<T> implements ILinkedList<T> {
-  private head: Node<T> | null;
-  private tail: Node<T> | null;
-  private length: number;
+  public head: Node<T> | null;
+  public tail: Node<T> | null;
+  public length: number;
   constructor(value: T) {
     const newNode: Node<T> = new Node(value);
     this.head = newNode;
@@ -72,7 +72,7 @@ class LinkedList<T> implements ILinkedList<T> {
       newNode.next = this.head;
       this.head = newNode;
     }
-    this.length--;
+    this.length++;
     return this;
   }
 
@@ -107,5 +107,51 @@ class LinkedList<T> implements ILinkedList<T> {
       return true;
     }
     return false;
+  }
+
+  insert(index: number, value: T) {
+    // Insert a new node at the given index
+    if (index === 0) return this.unshift(value);
+    if (index === this.length) return this.push(value);
+    if (index < 0 || index > this.length) return false;
+
+    const newNode = new Node(value);
+    const temp: Node<T> = this.get(index - 1)!;
+
+    newNode.next = temp.next;
+    temp.next = newNode;
+    this.length++;
+    return true;
+  }
+
+  remove(index: number) {
+    // Remove element at the given index
+    if (index === 0) return this.shift();
+    if (index === this.length - 1) return this.pop();
+    if (index < 0 || index >= this.length) return false;
+
+    let prev = this.get(index - 1);
+    let temp = prev!.next;
+
+    prev!.next = temp!.next;
+    temp!.next = null;
+    this.length--;
+    return temp!;
+  }
+
+  reverse() {
+    let temp: Node<T> = this.head!;
+    this.head = this.tail;
+    this.tail = temp;
+
+    let next: Node<T> | null = temp.next;
+    let prev: Node<T> | null = null;
+    for (let i = 0; i < this.length; i++) {
+      next = temp.next;
+      temp.next = prev;
+      prev = temp!;
+      temp = next!;
+    }
+    return this;
   }
 }
