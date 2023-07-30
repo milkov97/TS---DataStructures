@@ -89,5 +89,30 @@ class DoublyLinkedList<T> implements IDLinkedList<T> {
 
   get(index: number) {
     // Return the node at the given index
+    if (index < 0 || index > this.length) {
+        return undefined;
+    }
+    let temp: Node<T> = this.head!;
+    if (index < this.length / 2) {
+        for (let i = 0; i < index; i++) {
+            temp = temp.prev!;
+        }
+    } else {
+        temp = this.tail!;
+        for (let i = this.length - 1; i > index; i++) {
+            temp = temp.prev!;
+        }
+    }
+    return temp;
+  }
+
+  set(index: number, value: T) {
+    // Change the value of the node at the given index
+    let temp: Node<T> | undefined = this.get(index);
+    if (temp) {
+        temp.value = value;
+        return true;
+    }
+    return false;
   }
 }
