@@ -90,6 +90,7 @@ class LinkedList<T> implements ILinkedList<T> {
   }
 
   get(index: number) {
+    // Return the node at the given index
     if (index < 0 || index >= this.length) {
       return undefined;
     }
@@ -101,6 +102,7 @@ class LinkedList<T> implements ILinkedList<T> {
   }
 
   set(index: number, value: T) {
+    // Change the value of the node at the given index
     let temp: Node<T> | undefined = this.get(index);
     if (temp) {
       temp.value = value;

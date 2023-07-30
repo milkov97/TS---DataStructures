@@ -86,4 +86,8 @@ class DoublyLinkedList<T> implements IDLinkedList<T> {
     this.length--;
     return temp;
   }
+
+  get(index: number) {
+    // Return the node at the given index
+  }
 }
