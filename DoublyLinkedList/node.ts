@@ -1,4 +1,5 @@
 export class Node<T> {
+
     public value: T;
     public next: Node<T> | null;
     public prev: Node<T> | null;
