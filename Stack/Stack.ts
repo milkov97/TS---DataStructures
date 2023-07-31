@@ -1,14 +1,15 @@
 import { Node } from "./Node";
 
-interface Stack<T> {
+interface IStack<T> {
   top: Node<T> | null;
   length: number;
   push(value: T): this;
   pop(): Node<T> | undefined;
 }
 
-class Stack<T> implements Stack<T> {
+class Stack<T> implements IStack<T> {
   public top: Node<T> | null;
+  public length: number;
   constructor(value: T) {
     const newNode: Node<T> = new Node(value);
     this.top = newNode;
