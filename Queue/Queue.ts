@@ -44,8 +44,3 @@ class Queue<T> implements IQueue<T> {
       return temp;
   }
 }
-
-let myQueue = new Queue(3);
-myQueue.enqueue(5)
-myQueue.enqueue(6)
-console.log(myQueue);
