@@ -18,7 +18,7 @@ class Queue<T> implements IQueue<T> {
     this.last = newNode;
     this.length = 1;
   }
-  enqueue(value: T): this {
+  enqueue(value: T): this {``
     const newNode: Node<T> = new Node(value);
     if (!this.first) {
         this.first = newNode;
