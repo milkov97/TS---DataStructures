@@ -13,3 +13,9 @@
 #### :comet: insert() - On (We need to iterate over the elements of the list until we find this one wich we are looking for and insert the new element after it.)
 #### :dash: remove() - On (We need to iterate over the elements of the list until we find this one wich we are looking for and delete it)
 #### :repeat: reverse() - On 
+##
+## 2. Dobly Linked List
+##
+## 3. Queue
+##
+## 4. Stack
